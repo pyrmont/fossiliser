@@ -16,6 +16,14 @@
 (declare-source
   :source ["fossiliser"])
 
+(task "deps" []
+  (if-let [deps ((dyn :project) :dependencies)]
+    (each dep deps
+      (bundle-install dep))
+    (do
+      (print "no dependencies found")
+      (flush))))
+
 # Executable
 
 (post-deps
@@ -24,13 +32,7 @@
     :entry "fossiliser/cli.janet"
     :install false))
 
-(task "exe-deps" []
-  (if-let [deps ((dyn :project) :dependencies)]
-    (each dep deps
-      (bundle-install dep))
-    (do
-      (print "no dependencies found")
-      (flush)))
+(task "exe-deps" ["deps"]
   (if-let [deps ((dyn :project) :exe-dependencies)]
     (each dep deps
       (bundle-install dep))
@@ -40,16 +42,14 @@
 
 # Development
 
-(task "dev-deps" []
-  (if-let [deps ((dyn :project) :dependencies)]
-    (each dep deps
-      (bundle-install dep))
-    (do
-      (print "no dependencies found")
-      (flush)))
+(task "dev-deps" ["deps"]
   (if-let [deps ((dyn :project) :dev-dependencies)]
     (each dep deps
       (bundle-install dep))
     (do
       (print "no dev-dependencies found")
       (flush))))
+
+# Testing
+
+(task "test-deps" ["dev-deps" "exe-deps"])
