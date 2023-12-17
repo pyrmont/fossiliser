@@ -52,4 +52,7 @@
 
 # Testing
 
-(task "test-deps" ["dev-deps" "exe-deps"])
+(task "test-deps" []
+  # Running these rules in parallel can break
+  (do-rule "exe-deps")
+  (do-rule "dev-deps"))
