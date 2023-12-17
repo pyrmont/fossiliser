@@ -33,7 +33,7 @@
 (defn- slugify [date body]
   (string date
           "-"
-          (-> (peg/match ~(4 (* (any :W) '(some :w))) body)
+          (-> (peg/match ~(between 1 4 (* (any :W) '(some :w))) body)
               (string/join "-")
               (string/ascii-lower))))
 
