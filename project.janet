@@ -7,8 +7,8 @@
   :repo "git+https://github.com/pyrmont/fossiliser"
   :dependencies ["https://github.com/cosmictoast/jurl"
                  "https://github.com/janet-lang/spork"
-                 "https://github.com/pyrmont/argy-bargy"
                  "https://github.com/pyrmont/lemongrass"]
+  :exe-dependencies ["https://github.com/pyrmont/argy-bargy"]
   :dev-dependencies ["https://github.com/pyrmont/testament"])
 
 # Library
@@ -23,6 +23,20 @@
     :name "fossil"
     :entry "fossiliser/cli.janet"
     :install false))
+
+(task "exe-deps" []
+  (if-let [deps ((dyn :project) :dependencies)]
+    (each dep deps
+      (bundle-install dep))
+    (do
+      (print "no dependencies found")
+      (flush)))
+  (if-let [deps ((dyn :project) :exe-dependencies)]
+    (each dep deps
+      (bundle-install dep))
+    (do
+      (print "no dev-dependencies found")
+      (flush))))
 
 # Development
 
