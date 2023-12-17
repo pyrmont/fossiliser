@@ -13,7 +13,8 @@
                  ---
 
                  Hello world.` "\n")})
-  (def actual (archive "test/example.json"))
+  (def data (slurp "test/example.json"))
+  (def actual (archive data))
   (is (== expect actual)))
 
 

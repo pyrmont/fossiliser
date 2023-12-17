@@ -1,6 +1,5 @@
-(import jurl)
 (import lemongrass)
-(import spork/json)
+(import ./json)
 
 
 (defn get-content [node]
@@ -55,9 +54,10 @@
   ```
   Converts a list of statuses to Markdown-formatted strings
 
-  This function reads the JSON file located at `path` (which may be a URL) and
-  creates a Markdown-formatted string for each status. The result is returned
-  as a table with the keys being the paths to which the strings can be written.
+  This function takes a string of JSON-formatted `data` containing a list of
+  statuses returned from the Mastodon v1 API. It creates a Markdown-formatted
+  string for each status. The result is returned as a table with the keys being
+  the paths to which the strings can be written.
 
   The following options are available:
   - `:ignored-apps`: ignores statuses created by any of the apps listed in this
@@ -65,15 +65,14 @@
   - `:mentions?`: includes mentions
   - `:output-dir`: prepends this path to status filenames
   ```
-  [path &keys {:ignored-apps ignored-apps
+  [data &keys {:ignored-apps ignored-apps
                :mentions? mentions?
                :output-dir output-dir}]
   (default ignored-apps [])
   (def res @{})
   (def sep "/")
   (def output-dir (string output-dir sep))
-  (def input (if (os/stat path) (slurp path) (jurl/slurp path)))
-  (def posts (json/decode input))
+  (def posts (json/decode data))
   (each post posts
     (unless (or (and (not mentions?) (mention? post))
                 (no-content? post)

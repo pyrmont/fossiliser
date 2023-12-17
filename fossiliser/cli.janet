@@ -6,8 +6,8 @@
   ```
   The configuration for Argy-Bargy
   ```
-  {:rules [:path {:req?   true
-                  :help   "The path or URL for the input file."}
+  {:rules [:path {:default :stdin
+                  :help    "The path for the input file."}
            "--ignored-app"  {:help    `Statuses created by an application with
                                       this <name> will be ignored. This option
                                       can be used multiple times.`
@@ -45,8 +45,12 @@
     (do
       (def params (parsed :params))
       (def opts (parsed :opts))
-      (def posts (fossil/archive (params :path) :ignored-apps (opts "ignored-apps")
-                                                :mentions? (opts "mentions")
-                                                :output-dir (opts "output-dir")))
+      (def input-path (params :path))
+      (def input (if (= :stdin input-path)
+                   (getline)
+                   (slurp input-path)))
+      (def posts (fossil/archive input :ignored-apps (opts "ignored-apps")
+                                       :mentions? (opts "mentions")
+                                       :output-dir (opts "output-dir")))
       (each [path content] (pairs posts)
         (spit path content)))))
