@@ -7,11 +7,16 @@ Mastodon user to Markdown-formatted text files.
 
 ## Installation
 
-Install the `fossil` executable using JPM:
+Build the `fossil` executable using JPM:
 
 ```sh
-jpm install https://github.com/pyrmont/fossiliser
+git clone https://github.com/pyrmont/fossiliser
+cd fossiliser
+jpm -l run exe-deps
+jpm -l build
 ```
+
+Now copy the `build/fossil` executable to a directory on your PATH.
 
 Fossiliser can also be used as a library. Add the dependency to your `project.janet` file:
 
