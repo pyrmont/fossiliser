@@ -1,6 +1,6 @@
 (declare-project
   :name "Fossil"
-  :description "A tool to archive statuses from a user on Mastodon"
+  :description "An archiver of statuses from a Mastodon user"
   :author "Michael Camilleri"
   :license "MIT"
   :url "https://github.com/pyrmont/fossiliser"
