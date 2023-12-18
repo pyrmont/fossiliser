@@ -5,7 +5,8 @@
   :license "MIT"
   :url "https://github.com/pyrmont/fossiliser"
   :repo "git+https://github.com/pyrmont/fossiliser"
-  :dependencies ["https://github.com/pyrmont/lemongrass"]
+  :dependencies ["https://github.com/pyrmont/lemongrass"
+                 "https://github.com/pyrmont/medea"]
   :exe-dependencies ["https://github.com/pyrmont/argy-bargy"]
   :dev-dependencies ["https://github.com/pyrmont/testament"])
 

@@ -1,5 +1,5 @@
 (import lemongrass)
-(import ./json)
+(import medea)
 
 
 (defn get-content [node]
@@ -72,7 +72,7 @@
   (def res @{})
   (def sep "/")
   (def output-dir (string output-dir sep))
-  (def posts (json/decode data))
+  (def posts (medea/decode data))
   (each post posts
     (unless (or (and (not mentions?) (mention? post))
                 (no-content? post)
