@@ -1,5 +1,5 @@
 (declare-project
-  :name "Fossil"
+  :name "Fossiliser"
   :description "An archiver of statuses from a Mastodon user"
   :author "Michael Camilleri"
   :license "MIT"
